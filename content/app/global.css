@@ -1,0 +1,152 @@
+@font-face {
+    font-family: 'thifont';
+    src: url("../fonts/ufonts.com_pfdindisplaypro-thin.eot") format("embedded-opentype");
+    font-weight: normal;
+    font-style: normal;
+    /* IE9 Compat Modes */
+    src: url("../fonts/ufonts.com_pfdindisplaypro-thin.eot?#iefix") format("embedded-opentype"), url("../fonts/ufonts.com_pfdindisplaypro-thin.woff") format("woff"), url("../fonts/ufonts.com_pfdindisplaypro-thin.ttf") format("truetype");
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'thifont';
+    margin: 20px 0 10px 0;
+}
+
+
+h2, h3, h5, h6 {
+    font-size: 24px;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 10px;
+    color: #666;
+}
+
+
+h1 {
+    font-size: 1.5em;
+    margin: 5px 0 10px 0;
+    color: #0c0;
+    font-weight: bold;
+}
+
+h2 {
+    margin: 10px 0;
+}
+
+
+h3 {
+    padding-bottom: 5px;
+    margin: 5px 0 0;
+}
+
+
+h4 {
+    font-size: 24px;
+    padding-bottom: 20px;
+    color: #666;
+}
+
+
+h5 {
+    border: none;
+    padding-bottom: 0px;
+    margin: 0;
+}
+
+
+h6 {
+    font-size: 15px;
+}
+
+
+hr {
+    margin-top: 30px;
+}
+
+
+body {
+    padding-top: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #000;
+    background-color: #fff;
+}
+
+div[style].ui-grid-viewport {
+    overflow: auto !important;
+}
+
+
+#transactionWrapper {
+    width: 100%;
+    min-width: 600px;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+}
+
+
+    #transactionWrapper .success {
+        color: #0c0;
+        line-height: normal;
+    }
+
+    #transactionWrapper .error {
+        color: #f00;
+        line-height: normal;
+    }
+
+    #transactionWrapper .error-list {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+        #transactionWrapper .error-list li {
+            line-height: 0.7;
+            font-size: 12px;
+        }
+
+    #transactionWrapper .grid-container {
+        width: 90%;
+        min-height: 200px;
+        /* margin-right: 40px; */
+        margin-left: 80px;
+        position: relative;
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    #transactionWrapper .transaction-grid-header {
+        margin-left: 80px;
+        position: relative;
+        margin-top: 10px;
+        text-align: center;
+    }
+    
+    #transactionWrapper .payments-grid-header {
+        margin-left: 80px;
+        position: relative;
+        margin-top: 80px;
+        text-align: center;
+    } 
+ 
+
+.filter-chekbox {
+    margin-left: 20px !important; 
+}
+ 
+.green {
+    color: #0c3;
+}
+
+ 
+.red {
+    color: #f00;
+}
+
+ 
+.orange {
+    color: orange;
+}
+ 
+.orange .orange-style {
+    font-weight: bold;
+}

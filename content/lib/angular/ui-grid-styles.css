@@ -1,0 +1,55 @@
+﻿ .organization-grid,.user-grid{
+  width:100%;
+  height: 800px; 
+  font-size:12px;
+}
+
+.grid-expanded{width:100%;}
+.grid-collapsed{width:76%;}
+
+.user-search{overflow-y :auto;}
+
+.ui-grid-header-cell {padding: 5px;}
+.ui-grid-cell-contents {padding: 0;}
+.ui-grid-contents-wrapper {height: auto;}
+.ui-grid-cell-contents::after {padding: 0;}
+.ui-grid-cell {white-space: nowrap; text-overflow: ellipsis; overflow: hidden; padding: 5px;}
+.ui-grid-pager-panel {position: relative;}
+.ui-grid-pager-container {float:right; margin: 10px;}
+.ui-grid-pager-count-container {margin:15px 0;}
+.ui-grid-grid-footer {width:150px; margin: 10px;}
+.ui-grid-footer-info {height: 20px; font-size: 1.5em;}
+.ui-grid-pager-control button {border: none; background-color: #fff;}
+.ui-grid-pager-control input {text-align: center;}
+.ui-grid-pager-max-pages-number {width:100px; /*padding:5px 15px; position:absolute;*/ } 
+.ui-grid-column {max-width: 100%;display: inline-block;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;}
+.details-field {margin-left:10px; }
+.user-org-nav-container{margin-top:10px;margin-bottom:10px;font-size:12px; }
+  
+ 
+.shared-email-container li {
+  line-height: 0.7;
+  font-size: 14px;
+  margin-top: 10px;
+  color: #000;
+} 
+
+.shared-email-container  ul {
+   list-style-type: none;
+   padding-left: 0;
+} 
+
+ .shared-email-container .shared-email-field    {
+   margin-left:10px;
+   margin-top:10px;
+} 
+
+ .watermark {
+    position: absolute;
+    top : 50px;
+    opacity: 0.25;
+    font-size: 3em;
+    width: 100%;
+    text-align: center; 
+    z-index: 1000;
+}

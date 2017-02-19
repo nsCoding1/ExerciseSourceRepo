@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Spending </title>
+    <link rel="stylesheet" href="content/lib/bootstrap/bootstrap.min.css" /> 
+    <link rel="stylesheet" href="content/lib/angular/ui-grid-unstable.min.css" />
+    <link rel="stylesheet" href="content/lib/angular/ui-grid-styles.css" />
+    <link rel="stylesheet" href="content/app/global.css" />
+</head>
+<body>
+    <div id="transactionWrapper">
+        <div ng-cloak ng-app="transaction-grid" ng:controller="transactions">
+            <div>
+                <div class="transaction-grid-header">
+                    <h3>Average Spendings and Income </h3>
+                </div>
+                <input type="checkbox" ng-model="ignoreDonuts" class="filter-chekbox" ng:change="applyFilterChange()">Ignore Donuts</input>
+                <input type="checkbox" ng-model="ignoreCCPayments" class="filter-chekbox" ng:change="applyFilterChange()">Ignore Credit Card Payments</input>
+                <input type="checkbox" ng-model="addProjection" class="filter-chekbox" ng:change="applyFilterChange()">Add Projected Transactions</input>
+
+                <div class="grid-container">
+
+                    <div   ui-grid-pagination ui-grid-auto-resize ui-grid="gridOptions">
+                        <div class="watermark" ng-show="!gridOptions.data.length">There are currently no transactions to show.</div>
+
+                    </div>
+
+                </div>
+                <div class="payments-grid-header">
+                    <h3> Credit Card Payments </h3>
+                </div>
+                <div class="grid-container">
+
+                    <div class="ccpayments-grid" ui-grid-pagination ui-grid-auto-resize ui-grid="ccPaymentGridOptions">
+                        <div class="watermark" ng-show="!ccPaymentGridOptions.data.length">There are   no cc payments  to show.</div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/lib/jquery/jquery-2.1.3.min.js"></script>
+    <script src="scripts/lib/angular/angular-1.3.15.min.js"></script>
+    <script src="scripts/lib/jquery/accounting.min.js"></script>
+    <script src="scripts/lib/jquery/moment.min.js"></script> 
+    <script src="scripts/lib/underscore/underscore-min.js"></script> 
+    <script src="scripts/lib/angular/ui-grid-unstable.min.js"></script>
+    <script src="scripts/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="scripts/app/common-service.js"></script>
+    <script src="scripts/app/transaction-controllers.js"></script>
+</body>
+</html>
+<script>
+    var transactionGridModule = angular.module('transaction-grid', ['ui.grid', 'ui.grid.pagination', 'ui.grid.autoResize', "services.common", , "controllers.transactions"]);
+</script>
