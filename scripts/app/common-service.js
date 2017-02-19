@@ -38,7 +38,7 @@ angular.module('services.common', [])
                 }
             }).success(function (response) {
                 if (!(response.error == "no-error")) {
-                    scope.commonService.transactions.transactionsLoadingErrors = ["There was an error encountered an  error in fetching transactions"];;
+                    scope.commonService.transactions.transactionsLoadingErrors = ["Server encountered an  error in loading transactions"];;
                     scope.commonService.raiseEvent(scope.commonService.transactions.transactionsLoadingError);
                     return;
                 }
@@ -59,7 +59,7 @@ angular.module('services.common', [])
                         'year': moment(val["transaction-time"]).year() 
                     })
                 });
-
+                 
                 scope.commonService.raiseEvent(scope.commonService.transactions.loadingSuccessful);
 
             }).error(function (jqXHR, textStatus, errorThrown) {
@@ -93,7 +93,7 @@ angular.module('services.common', [])
                 }
             }).success(function (response) {
                 if (!(response.error == "no-error")) {
-                    scope.commonService.transactions.transactionsLoadingErrors = ["There was an error encountered an  error in fetching transactions"];;
+                   scope.commonService.transactions.transactionsLoadingErrors = ["Server encountered an  error in loading transactions"];;
                     scope.commonService.raiseEvent(scope.commonService.transactions.transactionsLoadingError);
                     return;
                 }

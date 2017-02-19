@@ -97,6 +97,8 @@ div[style].ui-grid-viewport {
     #transactionWrapper .error-list {
         list-style-type: none;
         padding-left: 0;
+        text-align:left;
+        margin-left:80px;
     }
 
         #transactionWrapper .error-list li {
@@ -104,63 +106,73 @@ div[style].ui-grid-viewport {
             font-size: 12px;
         }
 
-    #transactionWrapper .grid-container, #transactionWrapper .ccpayments-grid-container {
+    #transactionWrapper .grid-container {
         width: 90%;
         min-height: 200px;
         /* margin-right: 40px; */
         margin-left: 80px;
         position: relative;
-        margin-top: 40px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    #transactionWrapper .ccpayments-grid-container {
+        width: 90%;
+        min-height: 200px;
+        /* margin-right: 40px; */
+        margin-left: 80px;
+        position: relative;
+        margin-top: 20px;
         text-align: center;
     }
 
     #transactionWrapper .transaction-grid-header {
         margin-left: 80px;
         position: relative;
-        margin-top: 10px;
+        margin-top: 20px;
         text-align: center;
     }
-    
+
     #transactionWrapper .payments-grid-header {
         margin-left: 80px;
         position: relative;
         margin-top: 80px;
         text-align: center;
-    } 
- 
+    }
+
 
 .filter-chekbox {
-    margin-left: 20px !important; 
+    margin-left: 20px !important;
 }
- 
+
 .green {
     color: #0c3;
 }
 
- 
+
 .red {
     color: #f00;
 }
 
- 
+
 .orange {
     color: orange;
 }
- 
-.orange .orange-style {
-    font-weight: bold;
-}
+
+    .orange .orange-style {
+        font-weight: bold;
+    }
 
 .loading-indicator {
-	height: 80px;
-	width: 80px;
-	background: url( 'https://raw.githubusercontent.com/riverbed/flyscript-portal/master/thirdparty/showLoading/images/loading.gif' );
-	background-repeat: no-repeat;
-	background-position: center center;
+    height: 80px;
+    width: 80px;
+    background: url( 'https://raw.githubusercontent.com/riverbed/flyscript-portal/master/thirdparty/showLoading/images/loading.gif' );
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .loading-indicator-overlay {
-	background-color: #FFFFFF;
-	opacity: 0.6;
-	filter: alpha(opacity = 60);
+    background-color: #FFFFFF;
+    opacity: 0.6;
+    filter: alpha(opacity = 60);
 }

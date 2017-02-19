@@ -308,6 +308,7 @@ angular.module('controllers.transactions', [])
         $('.grid-container').showLoading();
     });
     $scope.$on($scope.commonService.transactions.transactionsLoadingError, function () {
+        $scope.errors=[];
         $scope.errors.push($scope.commonService.transactions.transactionsLoadingErrors);
 
     });
