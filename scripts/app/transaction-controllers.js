@@ -5,7 +5,7 @@ angular.module('controllers.transactions', [])
     $scope.data = [];
     $scope.filteredData = [];
     $scope.aggregates = [];
-    $scope.averages=[];
+    $scope.averages = [];
     $scope.ignoreDonuts = false;
     $scope.ignoreCCPayments = false;
     $scope.addProjection = false;
@@ -19,8 +19,8 @@ angular.module('controllers.transactions', [])
         $scope.errors = [];
         $scope.data = [];
         $scope.filterdData = [];
-        $scope.aggregates = []; 
-        $scope.averages=[];
+        $scope.aggregates = [];
+        $scope.averages = [];
     };
 
     //Define the grid options for Aggregate and average transactions grid
@@ -34,7 +34,7 @@ angular.module('controllers.transactions', [])
         columnDefs: [
                {
                    field: 'YearAndMonth',
-                   displayName: 'Year And Month', 
+                   displayName: 'Year And Month',
                    enableSorting: true,
                    cellTemplate: '<div class="ngCellText" title="{{COL_FIELD}}" > {{COL_FIELD}}</div>'
 
@@ -43,7 +43,7 @@ angular.module('controllers.transactions', [])
                    name: 'Income',
                    displayName: 'Income ',
                    cellTemplate: '<span class="ngCellText" title="{{COL_FIELD}}" >{{COL_FIELD}} </span>',
-                   enableSorting: true 
+                   enableSorting: true
 
 
                },
@@ -51,7 +51,7 @@ angular.module('controllers.transactions', [])
 			       name: 'Spending',
 			       displayName: 'Spending ',
 			       cellTemplate: '<span class="ngCellText" title="{{COL_FIELD}}" >{{COL_FIELD}} </span>',
-			       enableSorting: true 
+			       enableSorting: true
 
 
 			   }
@@ -62,7 +62,7 @@ angular.module('controllers.transactions', [])
             $scope.gridApi = gridApi;
 
         }
-    }; 
+    };
     //Define the grid options for credit card payments grid
     $scope.ccPaymentGridOptions = {
         paginationPageSizes: [25, 50, 75],
@@ -74,7 +74,7 @@ angular.module('controllers.transactions', [])
         columnDefs: [
                {
                    field: 'transactionTime',
-                   displayName: 'Day and Time', 
+                   displayName: 'Day and Time',
                    enableSorting: true,
                    cellFilter: 'date:\'yyyy-MM-dd\''
 
@@ -83,14 +83,14 @@ angular.module('controllers.transactions', [])
                    name: 'amount',
                    displayName: 'Amount ',
                    cellTemplate: '<span class="ngCellText" title="{{COL_FIELD}}" >{{COL_FIELD}} </span>',
-                   enableSorting: true  
+                   enableSorting: true
 
                },
 			   {
 			       name: 'rawMerchant',
 			       displayName: 'Merchant ',
 			       cellTemplate: '<span class="ngCellText" title="{{COL_FIELD}}" >{{COL_FIELD}} </span>',
-			       enableSorting: true  
+			       enableSorting: true
 
 
 			   }
@@ -101,17 +101,17 @@ angular.module('controllers.transactions', [])
             $scope.ccGridApi = gridApi;
 
         }
-    }; 
+    };
 
-   
+
     /*
        This common function is called on each filter state change .This way it will add &&  conditions to the filter
      * 
      */
     $scope.applyFilterChange = function () {
-        $scope.reset(); 
+        $scope.reset();
         $scope.commonService.transactions.loadTransactions($scope);
-       
+
 
     }
 
@@ -123,7 +123,7 @@ angular.module('controllers.transactions', [])
 
     }
 
- 
+
     $scope.applyAdditionalFilters = function () {
         $scope.filterdData = $scope.data;
         if ($scope.ignoreDonuts) {
@@ -139,14 +139,14 @@ angular.module('controllers.transactions', [])
      * each year. 
      */
 
-     $scope.caluculateAggregates = function () {
+    $scope.caluculateAggregates = function () {
         $scope.aggregates = [];
-        $scope.averages=[];
+        $scope.averages = [];
         //
-        var uniqYearAndMonth = _.uniq( _.map($scope.filterdData, function (val) { return val.yearAndMonth; }), function (val) { return val; });
-        var uniqYears = _.uniq( _.map($scope.filterdData, function (val) { return val.year; }), function (val) { return val; });
-      
-       //create array place holder for summed up monthly incomes and spending 
+        var uniqYearAndMonth = _.uniq(_.map($scope.filterdData, function (val) { return val.yearAndMonth; }), function (val) { return val; });
+        var uniqYears = _.uniq(_.map($scope.filterdData, function (val) { return val.year; }), function (val) { return val; });
+
+        //create array place holder for summed up monthly incomes and spending 
         _.each(uniqYearAndMonth, function (val) {
             $scope.aggregates.push({
                 'YearAndMonth': val,
@@ -154,72 +154,72 @@ angular.module('controllers.transactions', [])
                 'Spending': 0
             })
         });
-         //create array place holder for per year average monthly incomes and spending   
-          _.each(uniqYears, function (val) {
-          $scope.averages.push({
+        //create array place holder for per year average monthly incomes and spending   
+        _.each(uniqYears, function (val) {
+            $scope.averages.push({
                 'YearAndMonth': val,
                 'Income': 0,
                 'Spending': 0
             })
         });
 
-          
+
         //get all records with income values 
         var income = _.filter($scope.filterdData, function (val) { return val.amount >= 0; });
-         //group by year and month
+        //group by year and month
         var groupedIncome = _.groupBy(income, function (val) { return val.yearAndMonth; })
         //add ammount for each grouping 
         var addedGroupedIncome = _(groupedIncome).map(function (g, key) {
             return {
                 YearAndMonth: key,
-                Year:key.substr(0, 4),
-                Amount:_(g).reduce(function (m, x) { return m + x.amount; }, 0) 
+                Year: key.substr(0, 4),
+                Amount: _(g).reduce(function (m, x) { return m + x.amount; }, 0)
             };
         });
-          //add incomes to the corresponding records in the aggregates array 
+        //add incomes to the corresponding records in the aggregates array 
         _.each(addedGroupedIncome, function (val) {
             _.each($scope.aggregates, function (aggr) {
                 if (aggr.YearAndMonth == val.YearAndMonth) {
-                    aggr.Income = accounting.formatMoney(  val.Amount,[symbol = "$"], [precision = 2], [thousand = ","], [decimal = "."]) ;
+                    aggr.Income = accounting.formatMoney(val.Amount, [symbol = "$"], [precision = 2], [thousand = ","], [decimal = "."]);
                 }
             })
-         });
+        });
 
-         //group incomes from the year per month array  by year  
-         var groupedByYearIncome  =_.groupBy(addedGroupedIncome, function (val) { return val.Year; })
-         //find average for each grouping 
-         var avgPerYeaPerMonthIncome = _(groupedByYearIncome).map(function (g, key) {
+        //group incomes from the year per month array  by year  
+        var groupedByYearIncome = _.groupBy(addedGroupedIncome, function (val) { return val.Year; })
+        //find average for each grouping 
+        var avgPerYeaPerMonthIncome = _(groupedByYearIncome).map(function (g, key) {
             return {
-                 
-                YearAndMonth: key ,
-                Amount: accounting.formatMoney((_(g).reduce(function (m, x) { return m + x.Amount; }, 0)/g.length), [symbol = "$"], [precision = 2], [thousand = ","], [decimal = "."])
+
+                YearAndMonth: key,
+                Amount: accounting.formatMoney((_(g).reduce(function (m, x) { return m + x.Amount; }, 0) / g.length), [symbol = "$"], [precision = 2], [thousand = ","], [decimal = "."])
             };
         });
         //add incomes to the corresponding year records in the averages array
-          _.each(avgPerYeaPerMonthIncome, function (val) {
+        _.each(avgPerYeaPerMonthIncome, function (val) {
             _.each($scope.averages, function (avg) {
-                if (avg.YearAndMonth== val.YearAndMonth) {
-                    avg.Income =   val.Amount ;
+                if (avg.YearAndMonth == val.YearAndMonth) {
+                    avg.Income = val.Amount;
                 }
             })
-          });
+        });
 
-          
+
 
 
         //get all records with spending values 
         var spending = _.filter($scope.filterdData, function (val) { return val.amount < 0; });
         //group by year and month
         var groupedSpending = _.groupBy(spending, function (val) { return val.yearAndMonth; })
-       //add spendings for each grouping 
+        //add spendings for each grouping 
         var addedGroupedSpending = _(groupedSpending).map(function (g, key) {
             return {
                 YearAndMonth: key,
-                Year:key.substr(0, 4),
+                Year: key.substr(0, 4),
                 Amount: _(g).reduce(function (m, x) { return m + x.amount; }, 0)
             };
         });
-          //add spendings to the corresponding records in the aggregates array 
+        //add spendings to the corresponding records in the aggregates array 
         _.each(addedGroupedSpending, function (val) {
             _.each($scope.aggregates, function (aggr) {
                 if (aggr.YearAndMonth == val.YearAndMonth) {
@@ -229,87 +229,97 @@ angular.module('controllers.transactions', [])
         });
 
         //group spendings from the year per month array  by year  
-       var groupedByYearSpending  =_.groupBy(addedGroupedSpending, function (val) { return val.Year; })
-       //find average for each grouping 
-         var avgPerYeaPerMonthSpending = _(groupedByYearSpending).map(function (g, key) {
+        var groupedByYearSpending = _.groupBy(addedGroupedSpending, function (val) { return val.Year; })
+        //find average for each grouping 
+        var avgPerYeaPerMonthSpending = _(groupedByYearSpending).map(function (g, key) {
             return {
-                YearAndMonth: key ,
-                Amount: accounting.formatMoney(_(g).reduce(function (m, x) { return m + x.Amount; }, 0)/g.length, [symbol = "$"], [precision = 2], [thousand = ","], [decimal = "."])
+                YearAndMonth: key,
+                Amount: accounting.formatMoney(_(g).reduce(function (m, x) { return m + x.Amount; }, 0) / g.length, [symbol = "$"], [precision = 2], [thousand = ","], [decimal = "."])
             };
         });
 
         //add spendings to the corresponding year records in the averages array 
-         _.each(avgPerYeaPerMonthSpending, function (val) {
+        _.each(avgPerYeaPerMonthSpending, function (val) {
             _.each($scope.averages, function (avg) {
-                if (avg.YearAndMonth== val.YearAndMonth) {
+                if (avg.YearAndMonth == val.YearAndMonth) {
                     avg.Spending = val.Amount;
                 }
             })
         });
 
-         //concatenate the averages to the aggreates so the averages would show at the end of the grid
-         _.each($scope.averages, function (avg) {
-                avg.YearAndMonth = avg.YearAndMonth+"_PerMonth_Avg"
-                
-            });
-         $scope.aggregates=$scope.aggregates.concat($scope.averages);
+        //concatenate the averages to the aggreates so the averages would show at the end of the grid
+        _.each($scope.averages, function (avg) {
+            avg.YearAndMonth = avg.YearAndMonth + "_PerMonth_Avg"
+
+        });
+        $scope.aggregates = $scope.aggregates.concat($scope.averages);
 
 
-    }   
-
-     
+    }
 
 
-   /*
-    * Function filters all the records for CC payment from the raw transacions
-    * 
-    */
-       $scope.getCCPayments = function () { 
-         var ccPaymentsData=[].concat($scope.commonService.transactions.raw);
-         $scope.ccPaymentGridOptions.data = _.filter(ccPaymentsData, function (val) { return val.rawMerchant == 'CC PAYMENT' });
+
+
+    /*
+     * Function filters all the records for CC payment from the raw transacions
+     * 
+     */
+    $scope.getCCPayments = function () {
+        $('.ccpayments-grid-container').showLoading();
+        var ccPaymentsData = [].concat($scope.commonService.transactions.raw);
+        $scope.ccPaymentGridOptions.data = _.filter(ccPaymentsData, function (val) { return val.rawMerchant == 'CC PAYMENT' });
         _.each($scope.ccPaymentGridOptions.data, function (val) {
             val.amount = accounting.formatMoney(val.amount, [symbol = "$"], [precision = 2], [thousand = ","], [decimal = "."]);
-        })
-    } 
-     
+        });
+        $('.ccpayments-grid-container').hideLoading();
+    }
 
-  
+
+
 
     /*
      * Event handler called when the projected transactions loaded event is fired from the common service 
      */
-    $scope.$on($scope.commonService.transactions.projectionLoadingingSuccessful, function () {
-       // $scope.data = [];
+    $scope.$on($scope.commonService.transactions.projectionLoadingSuccessful, function () {
+        // $scope.data = [];
         //$scope.data = $scope.commonService.transactions.raw;
         $scope.data = $scope.data.concat($scope.commonService.transactions.projected);
         $scope.updateGrids();
     });
-     /*
-     * Event handler called when the normal transactions loaded event is fired from the common service 
-     */
-    $scope.$on($scope.commonService.transactions.loadingingSuccessful, function () {
+    /*
+    * Event handler called when the normal transactions loaded event is fired from the common service 
+    */
+    $scope.$on($scope.commonService.transactions.loadingSuccessful, function () {
         $scope.data = [];
         $scope.data = $scope.commonService.transactions.raw;
         if ($scope.addProjection) {
             $scope.commonService.transactions.loadProjectedTransactions($scope);
-        }else{
-            $scope.updateGrids(); 
+        } else {
+            $scope.updateGrids();
         }
-        
+
     });
 
-    $scope.$on($scope.commonService.transactions.loadingingStarted, function () {
-        
+
+    /*
+     *  Event handlers which can be used to intercept loadingStarted(Ajax begin) and loadingComplete (Ajax complete) and error (Ajax error) events
+     */
+    $scope.$on($scope.commonService.transactions.loadingStarted, function () {
+        $('.grid-container').showLoading();
     });
     $scope.$on($scope.commonService.transactions.transactionsLoadingError, function () {
         $scope.errors.push($scope.commonService.transactions.transactionsLoadingErrors);
 
-    }); 
-    $scope.$on($scope.commonService.transactions.loadingingCompleted, function () {
-       
+    });
+    $scope.$on($scope.commonService.transactions.loadingCompleted, function () {
+        $('.grid-container').hideLoading();
     });
 
-      $scope.getPage = function () {
+    /*
+     * Responsible for initial loading of the grids
+     */
+
+    $scope.getPage = function () {
         $scope.commonService.transactions.loadTransactions($scope);
     };
 

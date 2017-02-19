@@ -7,12 +7,12 @@ angular.module('services.common', [])
 
 
     this.transactions = {
-        loadingingStarted: 'transactions.loadingingStarted',
-        loadingingSuccessful: 'transactions.loadingingSuccessful',
+        loadingStarted: 'transactions.loadingStarted',
+        loadingSuccessful: 'transactions.loadingSuccessful',
         transactionsLoadingError: 'transactions.transactionsLoadingError',
         ignoreDonutSpending: 'transactions.ignoreDonutSpending',
-        loadingingCompleted: 'transactions.loadingingCompleted',
-        projectionLoadingingSuccessful: 'projectionLoadingingSuccessful',
+        loadingCompleted: 'transactions.loadingCompleted',
+        projectionLoadingSuccessful: 'projectionLoadingSuccessful',
         transactionsLoadingErrors: [],
         raw: [],
         aggregates: [],
@@ -29,7 +29,7 @@ angular.module('services.common', [])
                 "json-verbose-response": false
             }
 
-            scope.commonService.raiseEvent(scope.commonService.transactions.loadingingStarted);
+            scope.commonService.raiseEvent(scope.commonService.transactions.loadingStarted);
             $http({
                 method: 'POST',
                 url: url,
@@ -47,6 +47,7 @@ angular.module('services.common', [])
                     return;
                 }
                 scope.commonService.transactions.raw = [];
+                //Success function also formats the yean and months which will be used later for grouping
                 $(response.transactions).each(function (index, val) {
                     scope.commonService.transactions.raw.push({
                         'accountId': val["account-id"],
@@ -59,13 +60,13 @@ angular.module('services.common', [])
                     })
                 });
 
-                scope.commonService.raiseEvent(scope.commonService.transactions.loadingingSuccessful);
+                scope.commonService.raiseEvent(scope.commonService.transactions.loadingSuccessful);
 
             }).error(function (jqXHR, textStatus, errorThrown) {
                 scope.commonService.transactions.transactionsLoadingErrors = ["Server encountered an  error in loading transactions"];
                 scope.commonService.raiseEvent(scope.commonService.transactions.transactionsLoadingError);
             }).finally(function () {
-                scope.commonService.raiseEvent(scope.commonService.transactions.loadingingCompleted);
+                scope.commonService.raiseEvent(scope.commonService.transactions.loadingCompleted);
             });
         },
 
@@ -81,7 +82,7 @@ angular.module('services.common', [])
                 "json-verbose-response": false
             }
 
-            scope.commonService.raiseEvent(scope.commonService.transactions.loadingingStarted);
+            scope.commonService.raiseEvent(scope.commonService.transactions.loadingStarted);
             $http({
                 method: 'POST',
                 url: url,
@@ -100,6 +101,7 @@ angular.module('services.common', [])
                 if (!(response.transactions.length > 0)) {
                     return;
                 } 
+                //Success function also formats the yean and months which will be used later for grouping
                 scope.commonService.transactions.projected = [];
                 $(response.transactions).each(function (index, val) {
                     scope.commonService.transactions.projected.push({
@@ -113,13 +115,13 @@ angular.module('services.common', [])
                     })
                 });
 
-                scope.commonService.raiseEvent(scope.commonService.transactions.projectionLoadingingSuccessful);
+                scope.commonService.raiseEvent(scope.commonService.transactions.projectionLoadingSuccessful);
 
             }).error(function (jqXHR, textStatus, errorThrown) {
                 scope.commonService.transactions.transactionsLoadingErrors = ["Server encountered an  error in loading transactions"];
                 scope.commonService.raiseEvent(scope.commonService.transactions.transactionsLoadingError);
             }).finally(function () {
-                scope.commonService.raiseEvent(scope.commonService.transactions.loadingingCompleted);
+                scope.commonService.raiseEvent(scope.commonService.transactions.loadingCompleted);
             });
         }
     }

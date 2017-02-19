@@ -104,7 +104,7 @@ div[style].ui-grid-viewport {
             font-size: 12px;
         }
 
-    #transactionWrapper .grid-container {
+    #transactionWrapper .grid-container, #transactionWrapper .ccpayments-grid-container {
         width: 90%;
         min-height: 200px;
         /* margin-right: 40px; */
@@ -149,4 +149,18 @@ div[style].ui-grid-viewport {
  
 .orange .orange-style {
     font-weight: bold;
+}
+
+.loading-indicator {
+	height: 80px;
+	width: 80px;
+	background: url( 'https://raw.githubusercontent.com/riverbed/flyscript-portal/master/thirdparty/showLoading/images/loading.gif' );
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.loading-indicator-overlay {
+	background-color: #FFFFFF;
+	opacity: 0.6;
+	filter: alpha(opacity = 60);
 }
